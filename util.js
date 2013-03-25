@@ -140,6 +140,10 @@ var jj = jj || (function() {
         }
     }
 
+// func get : get a xml file ( list slide )
+// func next : send action next slide , if end slide , nothing happen
+
+
     var slide = {
         get : function(){
 
