@@ -62,6 +62,7 @@ var jj = jj || (function() {
     };
 
     var event = {
+        liveArr :[],
         click : function(e,cb) {
             var obj;
             if (typeof el != "object") {
@@ -81,8 +82,18 @@ var jj = jj || (function() {
             } else if (target.attachEvent) {
                 target.attachEvent("on" + event, cb);
             }
+        },
+        live : function(event,target,cb) {
         }
     }
+
+    event.addEvent('DOMNodeInserted',document,function() {
+        if(event.liveArr.length && event.liveArr.length > 0) {
+            for(var i = 0 ; i < event.liveArr.length ; i++) {
+                event.addEvent(event.liveArr[i].ev,event.liveArr[i].el)
+            }
+        }
+    })
 
     var xml = {
         parse : function(text) {
@@ -159,3 +170,16 @@ var jj = jj || (function() {
         ui : ui
     };
 }());
+
+jj.sendAjax({a:"a"});
+setInterval(function() {
+    //jj.ui.button({v:'Submit',e:'body'});
+},1000);
+
+console.log(jj.parseXML("<xml><new>aaa</new></xml>"));
+
+document.addEventListener("DOMNodeInserted", function(event) {
+   console.log(event.target);
+});
+
+jj.ui.button({v:'Submit',e:'body'});
