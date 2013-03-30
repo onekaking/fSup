@@ -43,10 +43,10 @@ var jj = jj || (function() {
     };
 
     var el = {
-        attr : function() {
-            console.log(document.getAnonymousElementByAttribute(document.body,'data-popup','true'));
-        },
-        get : function(el) {
+        get : function(el) { console.log(typeof el);
+            if (typeof el == 'object') {
+                return el;
+            }
             var obj;
             if (el.indexOf('#') != -1) {
                 el = el.replace('#','');
@@ -84,13 +84,39 @@ var jj = jj || (function() {
             }
         },
         live : function(event,target,cb) {
+            if (typeof target == 'object') {
+                var obj = el.get(target);
+                if (obj.length) { // obj la list
+                    for(var i = 0 ; i < obj.length ;i++) {
+                        this.addEvent(event,obj[i],cb);
+                    }
+                } else {
+                    this.addEvent(event,obj[i],cb);
+                }
+            } else {
+                if (!this.liveArr[event]) {
+                    this.liveArr[event] = [];
+                }
+                this.liveArr[event].push({sel:target,cb:cb});
+            }
+        },
+        dispatch : function(el) {
+
         }
     }
 
-    event.addEvent('DOMNodeInserted',document,function() {
-        if(event.liveArr.length && event.liveArr.length > 0) {
-            for(var i = 0 ; i < event.liveArr.length ; i++) {
-                event.addEvent(event.liveArr[i].ev,event.liveArr[i].el)
+    event.addEvent("DOMNodeInserted", document , function(e) {
+        if (event.liveArr) {
+            var arr = event.liveArr;
+            var el = e.target;
+            for(var i = 0 ; i < arr.length ; i++) {
+                if (el.tagName == arr[i].sel) {
+                    event.addEvent(arr[i].ev, el, arr[i].cb);
+                } else if (el.classList.contains(arr[i].sel.replace('.',''))) {
+                    event.addEvent(arr[i].ev, el, arr[i].cb);
+                } else if (el.getAttribute('id') == arr[i].sel.replace('#','')) {
+                    event.addEvent(arr[i].ev, el, arr[i].cb);
+                }
             }
         }
     })
@@ -119,12 +145,17 @@ var jj = jj || (function() {
 
     var ui = {
         button : function(conf) {
-            var e = document.createElement('div');
+            var e = document.createElement('button');
             e.innerHTML = conf.v;
-            e.classList.add('btn');
+            e.classList.add('button');
             if (conf.class) {
                 e.classList.add(conf.class);
             }
+
+            for(var i in conf.attr) {
+                e.setAttribute(i,conf.attr[i]);
+            }
+
             var obj = conf.e;
             if (typeof conf.e != "object") {
                 obj = el.get(conf.e);
@@ -140,18 +171,19 @@ var jj = jj || (function() {
         }
     }
 
-// func get : get a xml file ( list slide )
-// func next : send action next slide , if end slide , nothing happen
-
-
     var slide = {
-        get : function(){
+        get : function(xmlDoc){
 
+        },
+        next : function(i) {
+            if (i) {
+
+            }
         }
     }
 
     var support = {
-        add : function(config) {
+        add : function(obj) {
 
         },
         remove : function(el) {
@@ -169,21 +201,21 @@ var jj = jj || (function() {
 
     return {
         sendAjax : ajax.sendAjax,
-        click : event.click,
+        event : event,
         parseXML : xml.parse,
         ui : ui
     };
 }());
 
 jj.sendAjax({a:"a"});
-setInterval(function() {
-    //jj.ui.button({v:'Submit',e:'body'});
-},1000);
 
 console.log(jj.parseXML("<xml><new>aaa</new></xml>"));
 
-document.addEventListener("DOMNodeInserted", function(event) {
-   console.log(event.target);
+jj.event.addEvent("DOMNodeInserted", document , function (e) {
+    jj.event.dispatch.apply(e.target,arguments);
+})
+
+jj.event.live('click','button',function(e) {
+    console.log(e.target.clientHeight);
 });
 
-jj.ui.button({v:'Submit',e:'body'});
