@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<style type="text/css">
+@font-face {
+    font-family: HelveticaNeue;
+url('HelveticaNeueLTStd-Bd.otf'); /* IE9+ */
+}
+
+.button {
+    position: relative;
+    display: inline-block;
+    padding: 7px 15px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #333;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
+    white-space: nowrap;
+    background: #eaeaea;
+    background-image: -webkit-linear-gradient(#fafafa, #eaeaea);
+    background-repeat: repeat-x;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+    border-bottom-color: #c5c5c5;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.button:hover {
+    background-color: red;
+}
+
+a {
+    text-decoration: none;
+    color: #4183c4;
+}
+
+textarea, input, select, textarea, button {
+    font: 13px Helvetica, arial, freesans, clean, sans-seri;
+    line-height: 1.4;
+}
+
+.header {
+    text-shadow: 0 1px 0 #fff;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.header-logged-out {
+    padding: 10px 0;
+}
+
+div {
+    display: block;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+    color: #333333;
+    background-color: #C0DEED;
+}
+
+.container {
+    width: 920px;
+    margin: 0 auto;
+}
+
+.header-logo {
+    position: relative;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    float: left;
+    margin-left: -10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    white-space: nowrap;
+}
+
+.header-logged-out .top-nav {
+    margin-top: 10px;
+}
+
+.top-nav {
+    float: left;
+    list-style: none;
+}
+
+.top-nav li {
+    float: left;
+}
+
+.top-nav a {
+    margin-left: 15px;
+    font-size: 14px;
+    padding: 5px;
+    color: #333333;
+    font-weight: bold;
+}
+
+.header-actions {
+    float: right;
+    margin-top: 6px;
+}
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.home {
+    padding: 0px;
+    width: 100%;
+}
+
+.jumbotron {
+    padding: 50px 0 40px;
+    margin-bottom: 60px;
+    border-bottom: 1px solid #e5e5e5;
+    background-color: #fafafa;
+}
+
+.jumbotron:before, .jumbotron:after,
+.module:before, .news-header:before,
+.stream-container: before {
+    content: " ";
+    display: table;
+}
+
+.jumbotron:after, .module:after, .news-header:after, .stream-container:after {
+    clear: both;
+}
+
+.jumbotron .heading {
+    margin-top: 0;
+    padding-top: 20px;
+    font-size: 70px;
+    font-weight: normal;
+    line-height: 1;
+    letter-spacing: -1;
+    background: none;
+}
+
+.home-login {
+    float: right;
+    width: 290px;
+    margin-left: 60px;
+}
+
+.home-login .form {
+    margin: 0 0 10px;
+    position: relative;
+}
+
+.home-login .form input {
+    background-color: #fff;
+    margin-right: 5px;
+    background-position-x: 98%;
+}
+
+.home-login .form input, .home-login button.primary {
+    width: 100%;
+    padding: 9px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.button.primary {
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    background-color: #60b044;
+    background-image: -webkit-linear-gradient(#8add6d, #60b044);
+    background-repeat: repeat-x;
+    border-radius: #5ca941;
+}
+
+input[type="text"], input[type="password"],
+input[type="email"], textarea {
+    min-height: 34px;
+    outline: none;
+    color: #333;
+    background-position: right center;
+    border: 1px solid #ccc;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
+    box-sizing: border-box;
+    vertical-align: middle;
+}
+
+.module {
+    position: relative;
+    margin-bottom: 10px;
+    border: 1px solid rgba(0, 0, 0, .1);
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+    line-height: 16px;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    font-family: "HelveticaNeue";
+}
+
+.module .top-flex-module:first-child {
+    -webkit-border-radius: 5px 5px 0 0;
+    border-radius: 5px 5px 0 0;
+}
+
+.module .bot-flex-module:first-child {
+    -webkit-border-radius: 0 0 5px 5px;
+    border-radius: 0 0 5px 5px;
+}
+
+.home-left {
+    float: left;
+    width: 300px;
+    margin-top: 30px;
+}
+
+.profile-summary {
+    background-color: #f9f9f9;
+    padding: 12px;
+    line-height: 16px;
+    cursor: pointer;
+}
+
+.account-summary {
+    margin-bottom: 0;
+    position: relative;
+    display: block;
+    min-height: 32px;
+}
+
+.account-summary .content {
+    margin-left: 42px;
+    margin-right: 20px;
+}
+
+.account-summary .avatar-ico {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.profile-summary img {
+    float: left;
+}
+
+.size32 {
+    width: 32px;
+    height: 32px;
+}
+
+.size64 {
+    width: 64px;
+    height: 64px;
+}
+
+.size48 {
+    width: 48px;
+    height: 48px;
+}
+
+.size32 , .size48, .size64 {
+    border: 1px solid #eaeaea;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+
+.home-right {
+    float: right;
+    width: 600px;
+    margin-top: 30px;
+}
+
+.news {
+    position: relative;
+    list-style: none;
+    margin-left: 0;
+    margin-bottom: 20px;
+    position: relative;
+    font: 15px Helvetica, arial, freesans, clean, sans-seri;
+}
+
+.news .content {
+    border-radius: 5px;
+    margin-left: 58px;
+}
+
+.news img {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+}
+
+.news-header {
+    padding: 10px;
+    border-bottom: 1px solid #eaeaea;
+    background-color: #add8e6;
+    overflow: hidden;
+}
+
+.news-header .new-header-name {
+    float: left;
+}
+
+.news-header .time , .support-content {
+    float: right;
+}
+
+.news-content {
+    padding: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+.news-item {
+    background: #fff;
+    border-left: 1px solid #e8e8e8;
+    border-left: 1px solid rgba(0, 0, 0, .1);
+    border-right: 1px solid #e8e8e8;
+    border-right: 1px solid rgba(0, 0, 0, .1);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+}
+
+.user-pro {
+    float: right;
+    width: 210px;
+}
+
+.user-profile, .profile , .user-infos , a , .support-form{
+    overflow: hidden;
+}
+
+.profile {
+    border-bottom: 1px solid #a9a9a9;
+    padding: 15px;
+}
+
+.user-info , .list-support {
+    list-style: none;
+}
+
+ul , li {
+    margin: 0; padding: 0;
+}
+
+.user-info li {
+    display: inline-block;
+    width: 94px;
+    text-align: center;
+    border-right: 1px groove #a9a9a9;
+}
+
+.user-info li:last-child{
+    border-right: 0;
+}
+
+.sp-img , .user-icon {
+    margin-right: 10px;
+}
+
+.support-content {
+    padding: 3px 0;
+    width: 195px;
+}
+
+.support-text {
+    word-wrap: break-word;
+    position: relative;
+    margin-top: 5px;
+    font-size: 13px;
+}
+
+.module p {
+    margin-top: 7px;
+    margin-bottom: 7px;
+    width: auto;
+}
+
+.support-item {
+    overflow: hidden;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.module-name {
+    padding-bottom: 5px;
+}
+
+.support-textarea {
+    margin: 5px;
+    resize: none;
+    width: 260px;
+    height: 100px;
+    padding: 7px;
+    font-family: "HelveticaNeue";
+}
+
+.user-support {
+    padding: 15px;
+}
+
+.support-btn {
+    float: right;
+}
+
+.support-item {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.info-tit {
+    color: #999;
+}
+
+</style>
+</head>
+<body>
+<div id="wrapper">
+    <div class="header header-logged-out">
+        <div class="container clearfix">
+            <a class="header-logo" href="">
+                <img alt="fSub" class="fSub-logo size64" src="1.png"/>
+            </a>
+            <ul class="top-nav">
+                <li class="slide"><a href="#">Slide</a></li>
+                <li class="user"><a href="#">User</a></li>
+            </ul>
+            <div class="header-actions">
+                <a class="button" href="#">Sign in</a>
+                <a class="button" href="#">Sign up for free</a>
+            </div>
+        </div>
+    </div>
+    <div class="home site">
+        <div class="jumbotron hidden">
+            <div class="container">
+                <form accept-charset="UTF-8" action="" method="post" autocomplete="off" class="home-login">
+                    <div class="form">
+                        <input type="text" name="user[login]" class="textfield" placeholder="Username"
+                               autofocus="autofocus"/>
+                    </div>
+                    <div class="form">
+                        <input type="password" name="user[pass]" class="textfield" placeholder="Password"/>
+                    </div>
+                    <button class="button primary" type="submit">Login</button>
+                </form>
+                <h1 class="heading">Support FPT University's Student</h1>
+
+                <p class="subheading">
+                    Support send request help to another students , note your knowledge about the slide
+                </p>
+            </div>
+        </div>
+        <div class="container">
+            <div class="home-left">
+                <div class="module user-profile">
+                    <div class="profile">
+                        <img src="1.png" class="user-icon size32"/>
+                        <div class="user-pro">
+                            <a href="#" class="user-name"><p>@thienhoang</p></a>
+                            <p class="user-name-view">View profile</p>
+                        </div>
+                    </div>
+                    <div class="user-infos">
+                        <ul class="user-info">
+                            <li class="slide">
+                                <p class="info-num"><strong>10</strong></p>
+                                <p class="info-tit">Slide</p>
+                            </li>
+                            <li class="tag-follow">
+                                <p class="info-num"><strong>10</strong></p>
+                                <p class="info-tit">Tag Follow</p>
+                            </li>
+                            <li class="note">
+                                <p class="info-num"><strong>10</strong></p>
+                                <p class="info-tit">Note</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="module user-support">
+                    <div class="module-name">
+                        Support need your help
+                    </div>
+                    <ul class="list-support">
+                        <li class="support-item">
+                            <img src="1.png" class="size48 sp-img" />
+                            <div class="support-content">
+                                <a href="#" class="support-user">
+                                    @ngochoang
+                                </a>
+                                <div class="support-text">
+                                    I need your support , please help ! , And you
+                                </div>
+                            </div>
+                        </li>
+                        <li class="support-item">
+                            <img src="1.png" class="size48 sp-img" />
+                            <div class="support-content">
+                                <a href="#" class="support-user">
+                                    @ngochoang
+                                </a>
+                                <div class="support-text">
+                                    I need your support , please help ! , And you
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="support-form">
+                        <textarea class="support-textarea"  placeholder="Input your request..."></textarea>
+                        <input type="button" class="button support-btn" value="Send Support"/>
+                    </div>
+                </div>
+            </div>
+            <div class="home-right">
+                <div class="module">
+                    sad
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+
+    </div>
+</div>
+<script type="text/javascript" src="util.js"></script>
+</body>
+</html>
